@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8s-lab-webapp.name" . }}-frontend
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "k8s-lab-webapp.name" . }}-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ include "k8s-lab-webapp.name" . }}-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.frontend.image }}
+          imagePullPolicy: {{ .Values.frontend.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.frontend.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8s-lab-webapp.name" . }}-frontend
+spec:
+  selector:
+    app: {{ include "k8s-lab-webapp.name" . }}-frontend
+  ports:
+    - port: {{ .Values.frontend.port }}
+      targetPort: {{ .Values.frontend.port }}

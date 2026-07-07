@@ -1,0 +1,12 @@
+backend:
+  image: k8s-lab-backend:1.0.0
+  replicas: 1
+  imagePullPolicy: Never
+  port: 3000
+  appVersion: "1.0.0"
+
+frontend:
+  image: k8s-lab-frontend:1.0.0
+  replicas: 1
+  imagePullPolicy: Never
+  port: 80

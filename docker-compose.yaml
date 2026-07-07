@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    image: k8s-lab-backend:1.0.0
+    environment:
+      APP_VERSION: "1.0.0"
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: ./frontend
+    image: k8s-lab-frontend:1.0.0
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
