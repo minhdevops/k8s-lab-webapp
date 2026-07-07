@@ -1,18 +1,24 @@
 backend:
+  replicaCount: 1
   image:
     repository: dovanminh98/k8s-lab-backend
     tag: "1.0.0"
     pullPolicy: IfNotPresent
+  containerPort: 3000
   service:
     type: ClusterIP
     port: 3000
+    targetPort: 3000
 
 frontend:
+  replicaCount: 1
   image:
     repository: dovanminh98/k8s-lab-frontend
     tag: "1.0.0"
     pullPolicy: IfNotPresent
+  containerPort: 80
   service:
     type: NodePort
     port: 80
+    targetPort: 80
     nodePort: 30090
