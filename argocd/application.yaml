@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: k8s-lab-webapp
-  namespace: argocd
+  namespace: lab
 spec:
   project: default
   source:
-    repoURL: https://example.com/your-git-repo.git
+    repoURL: https://github.com/minhdevops/k8s-lab-webapp.git
     targetRevision: HEAD
     path: helm/k8s-lab-webapp
     helm:
