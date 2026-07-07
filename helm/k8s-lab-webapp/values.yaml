@@ -3,9 +3,16 @@ backend:
     repository: dovanminh98/k8s-lab-backend
     tag: "1.0.0"
     pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 3000
 
 frontend:
   image:
     repository: dovanminh98/k8s-lab-frontend
     tag: "1.0.0"
     pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30090
