@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "k8s-lab-webapp.name" . }}-frontend
 spec:
-  replicas: {{ .Values.frontend.replicas }}
+  replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "k8s-lab-webapp.name" . }}-frontend
@@ -14,18 +14,20 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: {{ .Values.frontend.image }}
-          imagePullPolicy: {{ .Values.frontend.imagePullPolicy }}
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.frontend.port }}
+            - containerPort: {{ .Values.frontend.containerPort }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "k8s-lab-webapp.name" . }}-frontend
 spec:
+  type: {{ .Values.frontend.service.type }}
   selector:
     app: {{ include "k8s-lab-webapp.name" . }}-frontend
   ports:
-    - port: {{ .Values.frontend.port }}
-      targetPort: {{ .Values.frontend.port }}
+    - port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.targetPort }}
+      nodePort: {{ .Values.frontend.service.nodePort }}
